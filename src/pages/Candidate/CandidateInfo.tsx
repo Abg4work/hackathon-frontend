@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactElement } from 'react';
 import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Stepper from '@mui/material/Stepper';
@@ -13,11 +13,11 @@ import JavascriptIcon from '@mui/icons-material/Javascript';
 import TerminalIcon from '@mui/icons-material/Terminal';
 import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 import { CodeReview } from '../CodeReview/CodeReview.tsx';
-import { Box } from '@mui/material';
 import api from '../../services/api.ts';
 import { API_ROUTE } from '../../constants/apiRoutes.ts';
 import { useParams } from 'react-router';
 import { Loader } from '../../components/Loader.tsx';
+import { Box } from '@mui/material';
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -101,11 +101,11 @@ function ColorlibStepIcon(props: StepIconProps) {
 const steps = ['Applied', 'Live Coding', 'Technical Round 1', 'Technical Round 2', 'Director'];
 
 const components = [
-  <></>,
+  <>Application Processed</>,
   <CodeReview />,
-  <></>,
-  <></>,
-  <></>
+  <>Technical Round 1</>,
+  <>Technical Round 2</>,
+  <>Director Round</>
 ];
 
 type CandidateInfo = {
@@ -117,10 +117,11 @@ type CandidateInfo = {
 }
 
 export default function CustomizedSteppers() {
+  const [componentToRenderForStep, setComponentToRenderForStep] = useState<ReactElement | undefined>(undefined);
   const [activeStep, setActiveStep] = useState(1);
   const { id } = useParams();
 
-  const [candidateDetails, setCandidateDetails] = useState<CandidateInfo | undefined>(undefined);
+  const [candidateDetails, setCandidateDetails] = useState<CandidateInfo[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -131,20 +132,26 @@ export default function CustomizedSteppers() {
     });
   }, [id]);
 
-  if (isLoading) return <Loader isOpen={isLoading} />;
+  useEffect(() => {
+    if (!candidateDetails.length) return;
+    setActiveStep(Number(candidateDetails[0]?.roundId));
+    const element: ReactElement = components[Number(candidateDetails[0]?.roundId)];
+    setComponentToRenderForStep(element);
+  }, [candidateDetails]);
 
+  if (isLoading) return <Loader isOpen={isLoading} />;
 
   return (
     <Stack sx={{ width: '100%' }} mt={3}>
       <Stepper alternativeLabel nonLinear activeStep={activeStep} connector={<ColorlibConnector />}>
         {steps.map((label, index) => (
           <Step key={label} completed={index <= 1}>
-            <StepLabel StepIconComponent={ColorlibStepIcon} onClick={() => setActiveStep(index)}>{label}</StepLabel>
+            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
       <Box padding={'30px'} width={'100%'}>
-        {components[activeStep]}
+        {componentToRenderForStep}
       </Box>
     </Stack>
   );
