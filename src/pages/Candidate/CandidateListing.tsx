@@ -95,6 +95,14 @@ const CandidateListing: React.FC = () => {
                         <TableCell>{candidate.status}</TableCell>
                       </TableRow>
                     ))}
+                  {
+                    !candidates.length ? (
+                      <TableRow
+                      >
+                        <TableCell colSpan={3} sx={{ textAlign: 'center' }}>No records found</TableCell>
+                      </TableRow>
+                    ) : ('')
+                  }
                 </TableBody>
               </Table>
             </TableContainer>
