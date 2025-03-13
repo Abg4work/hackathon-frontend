@@ -1,6 +1,5 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { CodeReview } from './pages/CodeReview/CodeReview.tsx';
 import { createTheme, ThemeProvider, Box } from '@mui/material';
@@ -9,6 +8,7 @@ import CandidateListing from './pages/Candidate/CandidateListing.tsx';
 import CandidateInfo from './pages/Candidate/CandidateInfo.tsx';
 import { SnackbarProvider } from 'notistack';
 import { CandidateRegistration } from './pages/Candidate/CandidateRegistration.tsx';
+import { Home } from './pages/Home.tsx';
 
 const theme = createTheme();
 
@@ -24,7 +24,7 @@ createRoot(document.getElementById('root')!).render(
               avatarUrl='https://example.com/avatar.jpg'
             />
             <Routes>
-              <Route path='/' element={<Box padding={'100px'} mt={10}><App /></Box>} />
+              <Route path='/' element={<Home />} />
               <Route path='/code-review' element={<Box padding={'100px'} mt={10}><CodeReview /></Box>} />
               <Route path='/candidates' element={<Box padding={'100px'} mt={10}><CandidateListing /></Box>} />
               <Route path='/candidates' element={<Box padding={'100px'} mt={10}><CandidateListing /></Box>} />
