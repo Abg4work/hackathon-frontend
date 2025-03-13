@@ -8,6 +8,7 @@ import Header from './components/Header.tsx';
 import CandidateListing from './pages/Candidate/CandidateListing.tsx';
 import CandidateInfo from './pages/Candidate/CandidateInfo.tsx';
 import { SnackbarProvider } from 'notistack';
+import { CandidateRegistration } from './pages/Candidate/CandidateRegistration.tsx';
 
 const theme = createTheme();
 
@@ -26,6 +27,8 @@ createRoot(document.getElementById('root')!).render(
               <Route path='/' element={<Box padding={'100px'} mt={10}><App /></Box>} />
               <Route path='/code-review' element={<Box padding={'100px'} mt={10}><CodeReview /></Box>} />
               <Route path='/candidates' element={<Box padding={'100px'} mt={10}><CandidateListing /></Box>} />
+              <Route path='/candidates' element={<Box padding={'100px'} mt={10}><CandidateListing /></Box>} />
+              <Route path='/candidates/register' element={<Box padding={'100px'} mt={10}><CandidateRegistration /></Box>} />
               <Route path='/candidates/:id' element={<CandidateInfo />} />
             </Routes>
           </Box>
