@@ -22,14 +22,10 @@ createRoot(document.getElementById('root')!).render(
               title='Dashboard'
               avatarUrl='https://example.com/avatar.jpg'
             />
-            <Box padding={'100px'} mt={10}>
-              <Routes>
-                <Route path='/' element={<App />} />
-                <Route path='/code-review' element={<CodeReview />} />
-                <Route path='/candidates' element={<CandidateListing />} />
-              </Routes>
-            </Box>
             <Routes>
+              <Route path='/' element={<Box padding={'100px'} mt={10}><App /></Box>} />
+              <Route path='/code-review' element={<Box padding={'100px'} mt={10}><CodeReview /></Box>} />
+              <Route path='/candidates' element={<Box padding={'100px'} mt={10}><CandidateListing /></Box>} />
               <Route path='/candidates/:id' element={<CandidateInfo />} />
             </Routes>
           </Box>
