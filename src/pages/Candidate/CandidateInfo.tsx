@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Stepper from '@mui/material/Stepper';
@@ -14,6 +14,11 @@ import TerminalIcon from '@mui/icons-material/Terminal';
 import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 import { CodeReview } from '../CodeReview/CodeReview.tsx';
 import { Box } from '@mui/material';
+import api from '../../services/api.ts';
+import { API_ROUTE } from '../../constants/apiRoutes.ts';
+import { useParams } from 'react-router';
+import { Candidate } from './CandidateListing.tsx';
+import { Loader } from '../../components/Loader.tsx';
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -104,8 +109,24 @@ const components = [
   <></>
 ];
 
+
 export default function CustomizedSteppers() {
   const [activeStep, setActiveStep] = useState(1);
+  const { id } = useParams();
+
+  const [candidateDetails, setCandidateDetails] = useState<Candidate | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!id) return;
+    api.get(API_ROUTE.candidateDetails.replace(':id', id)).then((response) => {
+      setCandidateDetails(response.data);
+      setIsLoading(false);
+    });
+  }, [id]);
+
+  if (isLoading) return <Loader isOpen={isLoading} />;
+
 
   return (
     <Stack sx={{ width: '100%' }} mt={3}>

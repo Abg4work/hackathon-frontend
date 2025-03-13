@@ -18,7 +18,7 @@ import { HttpStatusCode } from 'axios';
 import { Loader } from '../../components/Loader.tsx';
 import SlotManagement from '../../components/SlotManagement.tsx';
 
-interface Candidate {
+export interface Candidate {
   id: string;
 
   name: string;
