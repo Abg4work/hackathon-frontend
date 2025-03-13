@@ -19,8 +19,8 @@ function App() {
         {
           shouldLoadHeader &&
           <Header
-            username='John Doe'
-            title='Dashboard'
+            username={localStorage.getItem('role') ?? ''}
+            title={localStorage.getItem('name') ?? ''}
             avatarUrl='https://example.com/avatar.jpg'
           />
         }

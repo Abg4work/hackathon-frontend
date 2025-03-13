@@ -39,14 +39,17 @@ export const Home = () => {
       case 1:
         navigate(`/candidates`);
         localStorage.setItem('role', ROLE.HR);
+        localStorage.setItem('name', "Aakash Rajput");
         break;
       case 2:
         navigate(`/candidates`);
         localStorage.setItem('role', ROLE.INTERVIEWER);
+        localStorage.setItem('name', "Abhijeet Dhakane");
         break;
       case 3:
         navigate(`/candidates/register`);
         localStorage.setItem('role', ROLE.CANDIDATE);
+        localStorage.setItem('name', "Myron Dsilva");
         break;
       default:
         break;

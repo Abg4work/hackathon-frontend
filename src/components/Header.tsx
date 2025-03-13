@@ -25,11 +25,11 @@ const Header: React.FC<HeaderProps> = ({ username, title, avatarUrl }) => {
           <Toolbar sx={{ float: 'right' }}>
             <Avatar
               src={avatarUrl}
-              alt={username}
+              alt={title}
               sx={{ marginRight: 2 }}
             >
               {/* If no avatar URL is provided, show first letter of username */}
-              {username.charAt(0).toUpperCase()}
+              {title.charAt(0).toUpperCase()}
             </Avatar>
             <Box>
               <Typography variant='h6' component='div'>
