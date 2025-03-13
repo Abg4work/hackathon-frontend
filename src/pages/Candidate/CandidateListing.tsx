@@ -18,15 +18,23 @@ import { HttpStatusCode } from 'axios';
 import { Loader } from '../../components/Loader.tsx';
 import SlotManagement from '../../components/SlotManagement.tsx';
 import { ROLE } from '../Home.tsx';
+import { humanize } from '../../utils/formatter.ts';
+
+export enum INTERVIEW_STATUS {
+  APPLICATION_SUBMITTED,
+  CODE_REVIEWED,
+  CODE_PAIRED,
+  TECHNICAL_REVIEW_I,
+  TECHNICAL_REVIEW_II,
+  SELECTED,
+  REJECTED
+}
 
 export interface Candidate {
   id: string;
-
   name: string;
-
   email: string;
-
-  status: 'Pending' | 'Interviewed' | 'Rejected' | 'Hired';
+  interviewStatus: INTERVIEW_STATUS;
 }
 
 const CandidateListing: React.FC = () => {
@@ -80,7 +88,7 @@ const CandidateListing: React.FC = () => {
                   <TableRow>
                     <TableCell>Candidate Name</TableCell>
                     <TableCell>Email</TableCell>
-                    <TableCell>Application Status</TableCell>
+                    <TableCell>Status</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -95,7 +103,7 @@ const CandidateListing: React.FC = () => {
                       >
                         <TableCell>{candidate.name}</TableCell>
                         <TableCell>{candidate.email}</TableCell>
-                        <TableCell>{candidate.status}</TableCell>
+                        <TableCell>{humanize(candidate.interviewStatus)}</TableCell>
                       </TableRow>
                     ))}
                   {
