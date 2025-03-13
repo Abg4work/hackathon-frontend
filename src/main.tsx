@@ -22,8 +22,8 @@ createRoot(document.getElementById('root')!).render(
           <Box padding={'100px'} mt={10}>
             <Routes>
               <Route path='/' element={<App />} />
-              <Route path='/interviewer/code-review' element={<CodeReview />} />
-              <Route path='/interviewer/candidates' element={<CandidateListing />} />
+              <Route path='/code-review' element={<CodeReview />} />
+              <Route path='/candidates' element={<CandidateListing />} />
             </Routes>
           </Box>
         </Box>
