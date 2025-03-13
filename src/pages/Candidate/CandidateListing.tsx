@@ -46,7 +46,7 @@ const CandidateListing: React.FC = () => {
     });
   }, []);
 
-  if (isLoading) return <Loader isOpen={isLoading}/>;
+  if (isLoading) return <Loader isOpen={isLoading} />;
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage);

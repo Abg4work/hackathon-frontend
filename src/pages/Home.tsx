@@ -1,4 +1,3 @@
-import React from 'react';
 import { Paper, Typography, Box, Grid2 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import GroupIcon from '@mui/icons-material/Group';
