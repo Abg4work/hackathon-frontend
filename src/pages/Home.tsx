@@ -15,7 +15,7 @@ function getContentForCard(item: number) {
     case 1:
       return (<Box>
         <GroupIcon fontSize={'large'} />
-        <Typography variant={'h5'}>I am an HR</Typography>
+        <Typography variant={'h5'}>I am a HR</Typography>
       </Box>);
     case 2:
       return (<Box>
