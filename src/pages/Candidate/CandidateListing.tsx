@@ -16,6 +16,7 @@ import api from '../../services/api.ts';
 import { API_ROUTE } from '../../constants/apiRoutes.ts';
 import { HttpStatusCode } from 'axios';
 import { Loader } from '../../components/Loader.tsx';
+import SlotManagement from '../../components/SlotManagement.tsx';
 
 interface Candidate {
   id: string;
@@ -33,6 +34,7 @@ const CandidateListing: React.FC = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isInterviewSlotModalOpen, setIsInterviewSlotModalOpen] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -59,15 +61,12 @@ const CandidateListing: React.FC = () => {
     navigate(`/candidates/${candidateId}`);
   };
 
-  const redirectToSlotManagement = () => {
-    navigate(`/slot-management`);
-  };
-
   return (
     <>
+      <SlotManagement open={isInterviewSlotModalOpen} onClose={() => setIsInterviewSlotModalOpen(false)} />
       <Grid container spacing={0}>
         <Grid xs={12} textAlign={'right'} mb={2}>
-          <Button variant='contained' onClick={redirectToSlotManagement}>My Interview Slots</Button>
+          <Button variant='contained' onClick={() => setIsInterviewSlotModalOpen(true)}>My Interview Slots</Button>
         </Grid>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
           <Grid xs={12}>
