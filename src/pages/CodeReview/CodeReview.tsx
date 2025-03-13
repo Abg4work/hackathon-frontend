@@ -51,11 +51,15 @@ export const CodeReview = () => {
   };
 
   const handleAcceptCandidate = async () => {
-    await api.post(`${API_ROUTE.acceptCandidate}/${candidateId}`);
+    await api.post(`${API_ROUTE.acceptCandidate}/${candidateId}`, {
+      feedback: review
+    });
   };
 
   const handleRejectCandidate = async () => {
-    await api.post(`${API_ROUTE.rejectCandidate}/${candidateId}`);
+    await api.post(`${API_ROUTE.rejectCandidate}/${candidateId}`, {
+      feedback: review
+    });
   };
 
   return (
