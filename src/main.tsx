@@ -5,7 +5,8 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import { CodeReview } from './pages/CodeReview/CodeReview.tsx';
 import { createTheme, ThemeProvider, Box } from '@mui/material';
 import Header from './components/Header.tsx';
-import CandidateListing from './pages/CandidateListing/CandidateListing.tsx';
+import CandidateListing from './pages/Candidate/CandidateListing.tsx';
+import CandidateInfo from './pages/Candidate/CandidateInfo.tsx';
 
 const theme = createTheme();
 
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')!).render(
               <Route path='/' element={<App />} />
               <Route path='/code-review' element={<CodeReview />} />
               <Route path='/candidates' element={<CandidateListing />} />
+              <Route path='/candidates/:id' element={<CandidateInfo />} />
             </Routes>
           </Box>
         </Box>
