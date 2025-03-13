@@ -25,10 +25,10 @@ createRoot(document.getElementById('root')!).render(
             />
             <Routes>
               <Route path='/' element={<Home />} />
-              <Route path='/code-review' element={<Box padding={'100px'} mt={10}><CodeReview /></Box>} />
-              <Route path='/candidates' element={<Box padding={'100px'} mt={10}><CandidateListing /></Box>} />
-              <Route path='/candidates' element={<Box padding={'100px'} mt={10}><CandidateListing /></Box>} />
-              <Route path='/candidates/register' element={<Box padding={'100px'} mt={10}><CandidateRegistration /></Box>} />
+              <Route path='/code-review' element={<Box padding={'100px'}><CodeReview /></Box>} />
+              <Route path='/candidates' element={<Box padding={'100px'}><CandidateListing /></Box>} />
+              <Route path='/candidates' element={<Box padding={'100px'}><CandidateListing /></Box>} />
+              <Route path='/candidates/register' element={<Box padding={'100px'}><CandidateRegistration /></Box>} />
               <Route path='/candidates/:id' element={<CandidateInfo />} />
             </Routes>
           </Box>
