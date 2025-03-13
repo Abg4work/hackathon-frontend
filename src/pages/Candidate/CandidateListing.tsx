@@ -9,7 +9,7 @@ import {
   Paper,
   TablePagination,
   Button,
-  Grid
+  Grid, Tooltip
 } from '@mui/material';
 import { useNavigate } from 'react-router';
 import api from '../../services/api.ts';
@@ -20,21 +20,25 @@ import SlotManagement from '../../components/SlotManagement.tsx';
 import { ROLE } from '../Home.tsx';
 import { humanize } from '../../utils/formatter.ts';
 import SlotAvailability from '../../components/SlotAvailability.tsx';
+import ScheduleSendIcon from '@mui/icons-material/ScheduleSend';
 
 enum INTERVIEW_STATUS {
-  APPLICATION_SUBMITTED,
-  CODE_REVIEWED,
-  CODE_PAIRED,
-  TECHNICAL_REVIEW_I,
-  TECHNICAL_REVIEW_II,
-  SELECTED,
-  REJECTED
+  APPLICATION_SUBMITTED = 'APPLICATION_SUBMITTED',
+  CODE_REVIEWED = 'CODE_REVIEWED',
+  CODE_PAIRED = 'CODE_PAIRED',
+  TECHNICAL_REVIEW_I = 'TECHNICAL_REVIEW_I',
+  TECHNICAL_REVIEW_II = 'TECHNICAL_REVIEW_II',
+  SELECTED = 'SELECTED',
+  REJECTED = 'REJECTED'
 }
 
 export interface Candidate {
   id: string;
+
   name: string;
+
   email: string;
+
   interviewStatus: INTERVIEW_STATUS;
 }
 
@@ -83,12 +87,12 @@ const CandidateListing: React.FC = () => {
             <Button variant='contained' onClick={() => setIsInterviewSlotModalOpen(true)}>My Interview Slots</Button>
           </Grid>
         }
-        {
-          localStorage.getItem('role') === ROLE.HR &&
-          <Grid xs={12} textAlign={'right'} mb={2}>
-            <Button variant='contained' onClick={() => setIsCheckInterviewSlotModalOpen(true)}>Check Interviewer Slots</Button>
-          </Grid>
-        }
+        {/*{*/}
+        {/*  localStorage.getItem('role') === ROLE.HR &&*/}
+        {/*  <Grid xs={12} textAlign={'right'} mb={2}>*/}
+        {/*    <Button variant='contained' onClick={() => setIsCheckInterviewSlotModalOpen(true)}>Check Interviewer Slots</Button>*/}
+        {/*  </Grid>*/}
+        {/*}*/}
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
           <Grid xs={12}>
             <TableContainer>
@@ -98,6 +102,11 @@ const CandidateListing: React.FC = () => {
                     <TableCell>Candidate Name</TableCell>
                     <TableCell>Email</TableCell>
                     <TableCell>Status</TableCell>
+                    {
+                      localStorage.getItem('role') === ROLE.HR
+                      &&
+                      <TableCell>Action</TableCell>
+                    }
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -113,13 +122,27 @@ const CandidateListing: React.FC = () => {
                         <TableCell>{candidate.name}</TableCell>
                         <TableCell>{candidate.email}</TableCell>
                         <TableCell>{humanize(candidate.interviewStatus.toString())}</TableCell>
+                        {
+                          localStorage.getItem('role') === ROLE.HR
+                          &&
+                          <TableCell>
+                            <Tooltip title="Schedule Interview">
+                              <ScheduleSendIcon onClick={(event) => {
+                                event.stopPropagation();
+                                if (candidate.interviewStatus !== INTERVIEW_STATUS.APPLICATION_SUBMITTED)
+                                  setIsCheckInterviewSlotModalOpen(true);
+                              }}
+                                                sx={{ color: candidate.interviewStatus !== INTERVIEW_STATUS.APPLICATION_SUBMITTED ? '#1976d2' : '#EBEBE4' }} />
+                            </Tooltip>
+                          </TableCell>
+                        }
                       </TableRow>
                     ))}
                   {
                     !candidates.length ? (
                       <TableRow
                       >
-                        <TableCell colSpan={3} sx={{ textAlign: 'center' }}>No records found</TableCell>
+                        <TableCell colSpan={localStorage.getItem('role') === ROLE.HR ? 4 : 3} sx={{ textAlign: 'center' }}>No records found</TableCell>
                       </TableRow>
                     ) : ('')
                   }
