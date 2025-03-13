@@ -13,7 +13,6 @@ import JavascriptIcon from '@mui/icons-material/Javascript';
 import TerminalIcon from '@mui/icons-material/Terminal';
 import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 
-// 🔹 Connector Styling (Qonto)
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 10,
@@ -35,7 +34,6 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
   },
 }));
 
-// 🔹 Step Icon Root (Qonto)
 const QontoStepIconRoot = styled("div")<{ ownerState: { active?: boolean } }>(
   ({ theme, ownerState }) => ({
     color: theme.palette.grey[400], // Default color
@@ -67,7 +65,6 @@ const QontoStepIconRoot = styled("div")<{ ownerState: { active?: boolean } }>(
   })
 );
 
-// 🔹 Step Icon Component (Qonto)
 function QontoStepIcon(props: StepIconProps) {
   const { active, completed, className } = props;
 
@@ -82,7 +79,6 @@ function QontoStepIcon(props: StepIconProps) {
   );
 }
 
-// 🔹 Connector Styling (Colorlib)
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 22,
@@ -106,7 +102,6 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   },
 }));
 
-// 🔹 Step Icon Root (Colorlib)
 const ColorlibStepIconRoot = styled("div")<{ ownerState: { completed?: boolean; active?: boolean } }>(
   ({ theme, ownerState }) => ({
     backgroundColor: theme.palette.grey[400], // Default background

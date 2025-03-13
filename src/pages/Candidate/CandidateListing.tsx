@@ -14,6 +14,8 @@ import {
 import { useNavigate } from 'react-router';
 import api from '../../services/api.ts';
 import { API_ROUTE } from '../../constants/apiRoutes.ts';
+import { HttpStatusCode } from 'axios';
+import { Loader } from '../../components/Loader.tsx';
 
 interface Candidate {
   id: string;
@@ -29,23 +31,22 @@ const CandidateListing: React.FC = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  // Mock data - replace this with your actual data fetching logic
-  const candidates: Candidate[] = [
-    {
-      id: '1',
-      name: 'John Doe',
-      email: 'john@example.com',
-      status: 'Pending'
-    }
-  ];
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    api.get(API_ROUTE.candidateListing).then();
+    setIsLoading(true);
+    api.get(API_ROUTE.candidateListing).then((response) => {
+      if (response.status === HttpStatusCode.Ok) {
+        setCandidates(response.data);
+        setIsLoading(false);
+      }
+    });
   }, []);
 
+  if (isLoading) return <Loader isOpen={isLoading}/>;
+
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-    console.log(event);
     setPage(newPage);
   };
 
