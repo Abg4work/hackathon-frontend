@@ -1,4 +1,6 @@
 import { AppBar, Avatar, Box, Toolbar, Typography, Grid } from '@mui/material';
+import PeopleIcon from '@mui/icons-material/People';
+import { useNavigate } from 'react-router';
 
 interface HeaderProps {
   username: string;
@@ -9,10 +11,13 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ username, title, avatarUrl }) => {
+  const navigate = useNavigate();
   return (
     <AppBar position='static'>
       <Grid container justifyContent={'space-between'}>
-        <Grid item xs={6}></Grid>
+        <Grid item xs={6}>
+          <PeopleIcon sx={{ cursor: 'pointer', width: '50px', height: '50px', marginLeft: 2, marginTop: 0.5 }} onClick={() => navigate('/home')} />
+        </Grid>
         <Grid item xs={6} textAlign={'right'}>
           <Toolbar sx={{ float: 'right' }}>
             <Avatar

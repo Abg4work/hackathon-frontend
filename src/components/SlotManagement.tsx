@@ -63,7 +63,7 @@ const SlotManagement = ({ open, onClose }: { open: boolean, onClose: () => void 
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    api.post(`${API_ROUTE.saveSlots}/123`, formatInterviewSlots(selectedDays, slot), { params: { id: '123' } }).then((_data) => {
+    api.post(`${API_ROUTE.saveSlots}/123`, formatInterviewSlots(selectedDays, slot)).then((_data) => {
         enqueueSnackbar('Slots saved successfully!', {
           variant: 'success',
           autoHideDuration: 3000
