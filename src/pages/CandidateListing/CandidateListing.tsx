@@ -7,7 +7,9 @@ import {
   TableHead,
   TableRow,
   Paper,
-  TablePagination
+  TablePagination,
+  Button,
+  Grid
 } from '@mui/material';
 import { useNavigate } from 'react-router';
 
@@ -50,45 +52,59 @@ const CandidateListing: React.FC = () => {
     navigate(`/candidates/${candidateId}`);
   };
 
+  const redirectToSlotManagement = () => {
+    navigate(`/slot-management`);
+  };
+
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer>
-        <Table stickyHeader>
-          <TableHead>
-            <TableRow>
-              <TableCell>Candidate Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Application Status</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {candidates
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((candidate) => (
-                <TableRow
-                  key={candidate.id}
-                  hover
-                  onClick={() => handleRowClick(candidate.id)}
-                  sx={{ cursor: 'pointer' }}
-                >
-                  <TableCell>{candidate.name}</TableCell>
-                  <TableCell>{candidate.email}</TableCell>
-                  <TableCell>{candidate.status}</TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component='div'
-        count={candidates.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+    <>
+      <Grid container spacing={0}>
+        <Grid xs={12} textAlign={'right'} mb={2}>
+          <Button variant='contained' onClick={redirectToSlotManagement}>My Interview Slots</Button>
+        </Grid>
+        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+          <Grid xs={12}>
+            <TableContainer>
+              <Table stickyHeader>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Candidate Name</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>Application Status</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {candidates
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((candidate) => (
+                      <TableRow
+                        key={candidate.id}
+                        hover
+                        onClick={() => handleRowClick(candidate.id)}
+                        sx={{ cursor: 'pointer' }}
+                      >
+                        <TableCell>{candidate.name}</TableCell>
+                        <TableCell>{candidate.email}</TableCell>
+                        <TableCell>{candidate.status}</TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component='div'
+              count={candidates.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Grid>
+        </Paper>
+      </Grid>
+
+    </>
   );
 };
 
