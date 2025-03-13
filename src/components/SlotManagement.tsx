@@ -63,7 +63,7 @@ const SlotManagement = ({ open, onClose }: { open: boolean, onClose: () => void 
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    api.post(API_ROUTE.candidateListing, formatInterviewSlots(selectedDays, slot), { params: { id: '123' } }).then((_data) => {
+    api.post(`${API_ROUTE.saveSlots}/123`, formatInterviewSlots(selectedDays, slot), { params: { id: '123' } }).then((_data) => {
         enqueueSnackbar('Slots saved successfully!', {
           variant: 'success',
           autoHideDuration: 3000
@@ -111,12 +111,12 @@ const SlotManagement = ({ open, onClose }: { open: boolean, onClose: () => void 
           </FormGroup>
 
           <FormControl fullWidth>
-            <InputLabel id='demo-simple-select-label'>Age</InputLabel>
+            <InputLabel id='demo-simple-select-label'>Slot Time</InputLabel>
             <Select
               labelId='demo-simple-select-label'
               id='demo-simple-select'
               value={slot}
-              label='Age'
+              label='Slot Time'
               onChange={(event: SelectChangeEvent<string>) => setSlot(event.target.value)}
             >
               {
@@ -127,7 +127,7 @@ const SlotManagement = ({ open, onClose }: { open: boolean, onClose: () => void 
             </Select>
           </FormControl>
 
-          <Button type='submit' variant='contained' color='primary'>
+          <Button type='submit' variant='contained' color='primary' sx={{ mt: 2 }}>
             Save Slots
           </Button>
         </Box>
