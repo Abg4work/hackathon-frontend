@@ -19,6 +19,7 @@ import { Loader } from '../../components/Loader.tsx';
 import SlotManagement from '../../components/SlotManagement.tsx';
 import { ROLE } from '../Home.tsx';
 import { humanize } from '../../utils/formatter.ts';
+import SlotAvailability from '../../components/SlotAvailability.tsx';
 
 enum INTERVIEW_STATUS {
   APPLICATION_SUBMITTED,
@@ -44,6 +45,7 @@ const CandidateListing: React.FC = () => {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isInterviewSlotModalOpen, setIsInterviewSlotModalOpen] = useState(false);
+  const [isCheckInterviewSlotModalOpen, setIsCheckInterviewSlotModalOpen] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -73,11 +75,18 @@ const CandidateListing: React.FC = () => {
   return (
     <>
       <SlotManagement open={isInterviewSlotModalOpen} onClose={() => setIsInterviewSlotModalOpen(false)} />
+      <SlotAvailability open={isCheckInterviewSlotModalOpen} onClose={() => setIsCheckInterviewSlotModalOpen(false)} />
       <Grid container spacing={0}>
         {
           localStorage.getItem('role') === ROLE.INTERVIEWER &&
           <Grid xs={12} textAlign={'right'} mb={2}>
             <Button variant='contained' onClick={() => setIsInterviewSlotModalOpen(true)}>My Interview Slots</Button>
+          </Grid>
+        }
+        {
+          localStorage.getItem('role') === ROLE.HR &&
+          <Grid xs={12} textAlign={'right'} mb={2}>
+            <Button variant='contained' onClick={() => setIsCheckInterviewSlotModalOpen(true)}>Check Interviewer Slots</Button>
           </Grid>
         }
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
