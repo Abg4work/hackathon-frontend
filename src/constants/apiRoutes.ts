@@ -1,6 +1,6 @@
 export const API_ROUTE = {
   candidateListing: '/candidate/all',
-  candidateDetails: '/candidate/:id',
+  candidateInterviewInfo: '/candidate/:id',
   reviewCode: '/code-review',
   downloadCode: '/code-review/download',
   acceptCandidate: '/candidate/accept',

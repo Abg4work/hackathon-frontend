@@ -17,7 +17,6 @@ import { Box } from '@mui/material';
 import api from '../../services/api.ts';
 import { API_ROUTE } from '../../constants/apiRoutes.ts';
 import { useParams } from 'react-router';
-import { Candidate } from './CandidateListing.tsx';
 import { Loader } from '../../components/Loader.tsx';
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
@@ -109,17 +108,24 @@ const components = [
   <></>
 ];
 
+type CandidateInfo = {
+  candidateId: string;
+  roundId: string;
+  pros: string;
+  cons: string;
+  status: string;
+}
 
 export default function CustomizedSteppers() {
   const [activeStep, setActiveStep] = useState(1);
   const { id } = useParams();
 
-  const [candidateDetails, setCandidateDetails] = useState<Candidate | undefined>(undefined);
+  const [candidateDetails, setCandidateDetails] = useState<CandidateInfo | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (!id) return;
-    api.get(API_ROUTE.candidateDetails.replace(':id', id)).then((response) => {
+    api.get(API_ROUTE.candidateInterviewInfo.replace(':id', id)).then((response) => {
       setCandidateDetails(response.data);
       setIsLoading(false);
     });
