@@ -5,5 +5,5 @@ export const API_ROUTE = {
   downloadCode: '/code-review/download',
   acceptCandidate: '/candidate/accept',
   rejectCandidate: '/candidate/reject',
-  saveSlots: '/interview-slots'
+  saveSlots: '/interviewer/interview-slots'
 }
