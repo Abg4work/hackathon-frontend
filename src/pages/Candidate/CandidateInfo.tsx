@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, ReactElement } from 'react';
+import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Stepper from '@mui/material/Stepper';
@@ -110,14 +110,13 @@ const components = [
 
 type CandidateInfo = {
   candidateId: string;
-  roundId: string;
+  roundId: number;
   pros: string;
   cons: string;
   status: string;
 }
 
 export default function CustomizedSteppers() {
-  const [ComponentToRenderForStep, setComponentToRenderForStep] = useState<ReactElement | undefined>(undefined);
   const [activeStep, setActiveStep] = useState(1);
   const { id } = useParams();
 
@@ -134,10 +133,11 @@ export default function CustomizedSteppers() {
 
   useEffect(() => {
     if (!candidateDetails.length) return;
-    setActiveStep(Number(candidateDetails[0]?.roundId));
-    const element: ReactElement = components[Number(candidateDetails[0]?.roundId)];
-    console.log(element)
-    setComponentToRenderForStep(element);
+    const currentActiveStep = candidateDetails.reduce((max, product) =>
+        product.roundId > max.roundId ? product : max
+      , candidateDetails[0]);
+
+    setActiveStep(currentActiveStep.roundId);
   }, [candidateDetails]);
 
   if (isLoading) return <Loader isOpen={isLoading} />;
