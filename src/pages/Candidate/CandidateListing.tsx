@@ -17,6 +17,7 @@ import { API_ROUTE } from '../../constants/apiRoutes.ts';
 import { HttpStatusCode } from 'axios';
 import { Loader } from '../../components/Loader.tsx';
 import SlotManagement from '../../components/SlotManagement.tsx';
+import { ROLE } from '../Home.tsx';
 
 export interface Candidate {
   id: string;
@@ -65,9 +66,12 @@ const CandidateListing: React.FC = () => {
     <>
       <SlotManagement open={isInterviewSlotModalOpen} onClose={() => setIsInterviewSlotModalOpen(false)} />
       <Grid container spacing={0}>
-        <Grid xs={12} textAlign={'right'} mb={2}>
-          <Button variant='contained' onClick={() => setIsInterviewSlotModalOpen(true)}>My Interview Slots</Button>
-        </Grid>
+        {
+          localStorage.getItem('role') === ROLE.INTERVIEWER &&
+          <Grid xs={12} textAlign={'right'} mb={2}>
+            <Button variant='contained' onClick={() => setIsInterviewSlotModalOpen(true)}>My Interview Slots</Button>
+          </Grid>
+        }
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
           <Grid xs={12}>
             <TableContainer>

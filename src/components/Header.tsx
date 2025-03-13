@@ -16,7 +16,10 @@ const Header: React.FC<HeaderProps> = ({ username, title, avatarUrl }) => {
     <AppBar position='static'>
       <Grid container justifyContent={'space-between'}>
         <Grid item xs={6}>
-          <PeopleIcon sx={{ cursor: 'pointer', width: '50px', height: '50px', marginLeft: 2, marginTop: 0.5 }} onClick={() => navigate('/home')} />
+          <PeopleIcon sx={{ cursor: 'pointer', width: '50px', height: '50px', marginLeft: 2, marginTop: 0.5 }} onClick={() => {
+            navigate('/home');
+            localStorage.removeItem('role')
+          }} />
         </Grid>
         <Grid item xs={6} textAlign={'right'}>
           <Toolbar sx={{ float: 'right' }}>

@@ -4,6 +4,12 @@ import GroupIcon from '@mui/icons-material/Group';
 import LaptopIcon from '@mui/icons-material/Laptop';
 import { useNavigate } from 'react-router';
 
+export enum ROLE {
+  CANDIDATE="CANDIDATE",
+  INTERVIEWER="INTERVIEWER",
+  HR="HR"
+}
+
 function getContentForCard(item: number) {
   switch (item) {
     case 1:
@@ -32,12 +38,15 @@ export const Home = () => {
     switch (index) {
       case 1:
         navigate(`/candidates`);
+        localStorage.setItem('role', ROLE.HR);
         break;
       case 2:
         navigate(`/candidates`);
+        localStorage.setItem('role', ROLE.INTERVIEWER);
         break;
       case 3:
         navigate(`/candidates/register`);
+        localStorage.setItem('role', ROLE.CANDIDATE);
         break;
       default:
         break;
