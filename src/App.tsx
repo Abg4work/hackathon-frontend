@@ -11,13 +11,13 @@ function App() {
   const { pathname } = useLocation();
   console.log(pathname);
 
-  const isNotHomePath = pathname !== '/home';
+  const shouldLoadHeader = pathname !== '/home' && pathname !== '/candidates/register';
 
   return (
     <>
-      <Box bgcolor={isNotHomePath ? '#d3d3d329' : ''} height={'100vh'} width={'100vw'}>
+      <Box bgcolor={shouldLoadHeader ? '#d3d3d329' : ''} height={'100vh'} width={'100vw'}>
         {
-          isNotHomePath &&
+          shouldLoadHeader &&
           <Header
             username='John Doe'
             title='Dashboard'
