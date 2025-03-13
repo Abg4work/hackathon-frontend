@@ -98,7 +98,7 @@ function ColorlibStepIcon(props: StepIconProps) {
   );
 }
 
-const steps = ['Applied', 'Live Coding', 'Technical Round 1', 'Technical Round 2', 'Director'];
+const steps = ['Applied', 'Code Review', 'Technical Round 1', 'Technical Round 2', 'Director'];
 
 const components = [
   <>Application Processed</>,
