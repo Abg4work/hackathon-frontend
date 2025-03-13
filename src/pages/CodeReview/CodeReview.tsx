@@ -7,20 +7,23 @@ import api from '../../services/api';
 import { API_ROUTE } from '../../constants/apiRoutes';
 import { enqueueSnackbar } from 'notistack';
 import { useParams } from 'react-router';
-
+import { Loader } from '../../components/Loader';
 export const CodeReview = () => {
   const [review, setReview] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const candidateId = useParams().id;
 
 
   const handleReviewCode = async () => {
+    setIsLoading(true);
     const response = await api.get(API_ROUTE.reviewCode + `/${candidateId}`);
 
     if(response.status === 200) {
-      setReview(response.data.review);
+      setReview(response.data);
     } else {
       enqueueSnackbar('Error reviewing code', { variant: 'error' });
     }
+    setIsLoading(false);
   };
 
   const handleDownloadCode = async () => {
@@ -57,6 +60,7 @@ export const CodeReview = () => {
 
   return (
     <div>
+      {isLoading && <Loader isOpen={isLoading} />}
       <Box display="flex" alignItems="center" width="100%" marginBlock={2}>
         <Button variant="contained" startIcon={<Download />} color="primary" sx={{marginRight: 2}} onClick={handleDownloadCode}>
             Download code
@@ -80,6 +84,8 @@ export const CodeReview = () => {
           sx={{ 
             width: 'calc(45vw - 1rem)',
             height: '50vh', 
+            paddingLeft: 1,
+            paddingRight: 1,
             overflow: 'scroll',
             backgroundColor: 'background.paper'
           }}

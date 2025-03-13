@@ -117,7 +117,7 @@ type CandidateInfo = {
 }
 
 export default function CustomizedSteppers() {
-  const [componentToRenderForStep, setComponentToRenderForStep] = useState<ReactElement | undefined>(undefined);
+  const [ComponentToRenderForStep, setComponentToRenderForStep] = useState<ReactElement | undefined>(undefined);
   const [activeStep, setActiveStep] = useState(1);
   const { id } = useParams();
 
@@ -136,6 +136,7 @@ export default function CustomizedSteppers() {
     if (!candidateDetails.length) return;
     setActiveStep(Number(candidateDetails[0]?.roundId));
     const element: ReactElement = components[Number(candidateDetails[0]?.roundId)];
+    console.log(element)
     setComponentToRenderForStep(element);
   }, [candidateDetails]);
 
@@ -151,7 +152,7 @@ export default function CustomizedSteppers() {
         ))}
       </Stepper>
       <Box padding={'30px'} width={'100%'}>
-        {componentToRenderForStep}
+        {components[activeStep]}
       </Box>
     </Stack>
   );
