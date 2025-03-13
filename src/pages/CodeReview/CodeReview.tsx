@@ -6,14 +6,15 @@ import ReactMarkdown from 'react-markdown';
 import api from '../../services/api';
 import { API_ROUTE } from '../../constants/apiRoutes';
 import { enqueueSnackbar } from 'notistack';
+import { useParams } from 'react-router';
 
 export const CodeReview = () => {
   const [review, setReview] = useState('');
+  const candidateId = useParams().id;
+
 
   const handleReviewCode = async () => {
-    const response = await api.post(API_ROUTE.reviewCode, {
-      code: review,
-    });
+    const response = await api.get(API_ROUTE.reviewCode + `/${candidateId}`);
 
     if(response.status === 200) {
       setReview(response.data.review);
@@ -23,21 +24,41 @@ export const CodeReview = () => {
   };
 
   const handleDownloadCode = async () => {
-    await api.post(API_ROUTE.downloadCode);
+    try {
+        const response = await api.get(`${API_ROUTE.downloadCode}/${candidateId}`, {
+            responseType: 'blob' // Ensure response is treated as a Blob
+        });
+        
+        if (response.status === 200) {
+            const file = new Blob([response.data], { type: response.headers['content-type'] || 'application/zip' });
+            const url = URL.createObjectURL(file);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'code.zip';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url); // Cleanup
+        }
+    } catch (error) {
+        console.error('Error downloading file:', error);
+    }
   };
 
   const handleAcceptCandidate = async () => {
-    await api.post(API_ROUTE.acceptCandidate);
+    await api.post(`${API_ROUTE.acceptCandidate}/${candidateId}`);
   };
 
   const handleRejectCandidate = async () => {
-    await api.post(API_ROUTE.rejectCandidate);
+    await api.post(`${API_ROUTE.rejectCandidate}/${candidateId}`);
   };
 
   return (
     <div>
-      <Box display="flex" alignItems="center" width="100%" marginBlock={2} onClick={handleDownloadCode}>
-        <Button variant="contained" startIcon={<Download />} color="primary" sx={{marginRight: 2}}>
+      <Box display="flex" alignItems="center" width="100%" marginBlock={2}>
+        <Button variant="contained" startIcon={<Download />} color="primary" sx={{marginRight: 2}} onClick={handleDownloadCode}>
             Download code
         </Button>
         <Button variant="contained" startIcon={<Chat />} color="secondary" onClick={handleReviewCode}>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
 
 const api = axios.create({
-  baseURL: 'http://192.168.20.23:8080/',
+  baseURL: import.meta.env.REACT_APP_API_URL || 'http://192.168.20.23:8080/',
   headers: {
     'Content-Type': 'application/json',
   },

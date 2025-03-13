@@ -20,7 +20,7 @@ import SlotManagement from '../../components/SlotManagement.tsx';
 import { ROLE } from '../Home.tsx';
 import { humanize } from '../../utils/formatter.ts';
 
-export enum INTERVIEW_STATUS {
+enum INTERVIEW_STATUS {
   APPLICATION_SUBMITTED,
   CODE_REVIEWED,
   CODE_PAIRED,
@@ -103,7 +103,7 @@ const CandidateListing: React.FC = () => {
                       >
                         <TableCell>{candidate.name}</TableCell>
                         <TableCell>{candidate.email}</TableCell>
-                        <TableCell>{humanize(candidate.interviewStatus)}</TableCell>
+                        <TableCell>{humanize(candidate.interviewStatus.toString())}</TableCell>
                       </TableRow>
                     ))}
                   {
