@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -12,6 +12,8 @@ import {
   Grid
 } from '@mui/material';
 import { useNavigate } from 'react-router';
+import api from '../../services/api.ts';
+import { API_ROUTE } from '../../constants/apiRoutes.ts';
 
 interface Candidate {
   id: string;
@@ -37,6 +39,10 @@ const CandidateListing: React.FC = () => {
       status: 'Pending'
     }
   ];
+
+  useEffect(() => {
+    api.get(API_ROUTE.candidateListing).then();
+  }, []);
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     console.log(event);

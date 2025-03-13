@@ -7,29 +7,34 @@ import { createTheme, ThemeProvider, Box } from '@mui/material';
 import Header from './components/Header.tsx';
 import CandidateListing from './pages/Candidate/CandidateListing.tsx';
 import CandidateInfo from './pages/Candidate/CandidateInfo.tsx';
+import { SnackbarProvider } from 'notistack';
 
 const theme = createTheme();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Box bgcolor={'#d3d3d329'} height={'100vh'} width={'100vw'}>
-          <Header
-            username='John Doe'
-            title='Dashboard'
-            avatarUrl='https://example.com/avatar.jpg'
-          />
-          <Box padding={'100px'} mt={10}>
+      <SnackbarProvider maxSnack={3}>
+        <BrowserRouter>
+          <Box bgcolor={'#d3d3d329'} height={'100vh'} width={'100vw'}>
+            <Header
+              username='John Doe'
+              title='Dashboard'
+              avatarUrl='https://example.com/avatar.jpg'
+            />
+            <Box padding={'100px'} mt={10}>
+              <Routes>
+                <Route path='/' element={<App />} />
+                <Route path='/code-review' element={<CodeReview />} />
+                <Route path='/candidates' element={<CandidateListing />} />
+              </Routes>
+            </Box>
             <Routes>
-              <Route path='/' element={<App />} />
-              <Route path='/code-review' element={<CodeReview />} />
-              <Route path='/candidates' element={<CandidateListing />} />
               <Route path='/candidates/:id' element={<CandidateInfo />} />
             </Routes>
           </Box>
-        </Box>
-      </BrowserRouter>
+        </BrowserRouter>
+      </SnackbarProvider>
     </ThemeProvider>
   </StrictMode>
 );
