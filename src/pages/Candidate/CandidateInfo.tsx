@@ -13,6 +13,7 @@ import JavascriptIcon from '@mui/icons-material/Javascript';
 import TerminalIcon from '@mui/icons-material/Terminal';
 import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 import { CodeReview } from '../CodeReview/CodeReview.tsx';
+import { Box } from '@mui/material';
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -115,7 +116,9 @@ export default function CustomizedSteppers() {
           </Step>
         ))}
       </Stepper>
-      {components[activeStep]}
+      <Box padding={'30px'} width={'100%'}>
+        {components[activeStep]}
+      </Box>
     </Stack>
   );
 }

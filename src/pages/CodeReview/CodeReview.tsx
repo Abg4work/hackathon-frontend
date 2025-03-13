@@ -36,8 +36,8 @@ export const CodeReview = () => {
 
   return (
     <div>
-      <Box display="flex" alignItems="center" gap="2rem" width="100vw" marginBlock={2} onClick={handleDownloadCode}>
-        <Button variant="contained" startIcon={<Download />} color="primary">
+      <Box display="flex" alignItems="center" width="100%" marginBlock={2} onClick={handleDownloadCode}>
+        <Button variant="contained" startIcon={<Download />} color="primary" sx={{marginRight: 2}}>
             Download code
         </Button>
         <Button variant="contained" startIcon={<Chat />} color="secondary" onClick={handleReviewCode}>
@@ -57,7 +57,7 @@ export const CodeReview = () => {
         <Paper 
           elevation={3} 
           sx={{ 
-            width: 'calc(50vw - 1rem)', 
+            width: 'calc(45vw - 1rem)',
             height: '50vh', 
             overflow: 'scroll',
             backgroundColor: 'background.paper'
@@ -66,8 +66,8 @@ export const CodeReview = () => {
           <ReactMarkdown>{review}</ReactMarkdown>
         </Paper>
       </Box>
-      <Box display="flex" alignItems="center" gap="2rem" marginBlock={2}>
-        <Button variant="contained" color="error" onClick={handleRejectCandidate}>
+      <Box display="flex" alignItems="center" mt={3}>
+        <Button variant="contained" color="error" onClick={handleRejectCandidate} sx={{marginRight: 2}}>
             Reject Candidate
         </Button>
         <Button variant="contained" color="success" onClick={handleAcceptCandidate}>
